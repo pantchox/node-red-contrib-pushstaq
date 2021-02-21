@@ -2,7 +2,7 @@
 
 This is the official PushStaq node for Node-Red.
 
-With this node you can push messages from your Node-Red flows to any device with PushStaq.
+With this node you can trigger and alert real time push notifications messages from your Node-Red flows to any device with PushStaq.
 
 ## Guidelines
 
