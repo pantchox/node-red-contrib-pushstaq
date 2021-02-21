@@ -18,8 +18,13 @@
   "keywords": [
     "node-red",
     "nodes",
-    "flows"
-    
+    "flows",
+    "push",
+    "notification",
+    "web push",
+    "alert",
+    "chat",
+    "bookmark"
   ],
   "node-red": {
     "nodes": {
