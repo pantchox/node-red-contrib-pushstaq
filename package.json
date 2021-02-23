@@ -28,7 +28,7 @@
   ],
   "node-red": {
     "nodes": {
-      "sample": "pushstaq.js"
+      "pushstaq": "pushstaq.js"
     }
   },
   "author": "Arye Shalev",
@@ -37,7 +37,5 @@
     "url": "https://github.com/pantchox/node-red-contrib-pushstaq/issues"
   },
   "homepage": "https://github.com/pantchox/node-red-contrib-pushstaq#readme",
-  "dependencies": {
-    "request": "^2.88.2"
-  }
+  "dependencies": {}
 }

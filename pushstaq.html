@@ -1,0 +1,74 @@
+<!-- configuration node html -->
+<script type="text/javascript">
+    RED.nodes.registerType('pushstaq-api-keys',{
+        category: 'config',
+        defaults: {
+            name: {value:""},
+        },
+        credentials: {
+            apikey: {type:"text",required:true},
+        },
+        label: function() {
+            return this.name || 'No Name PushStaq Channel';
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="pushstaq-api-keys">
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-config-input-name" placeholder="Config name">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-apikey"><i class="fa fa-lock"></i>API Key</label>
+        <input type="text" id="node-config-input-apikey" placeholder="Channel API Key">
+    </div>
+    <div class="form-tips"><b>Name:</b>Config name, You can enter your PushStaq channel or any other suitable name</div>
+    <div class="form-tips"><b>API Key:</b>The selected PushStaq channel API Key. In PushStaq channel open the settings pane and copy the API key. If API key does not exist click the "Generate API Key" button, this will create a new API key dedicated to the selected channel</div>
+</script>
+
+<!-- main pushstaq node -->
+<script type="text/html" data-help-name="PushStaq">
+    <p>Send msg.payload to PushStaq channel to log and trigger real time push notifications to any of your devices</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">string</span>
+        </dt>
+        <dd> the payload of the message to send PushStaq </dd>
+    </dl>
+
+    <h3>Details</h3>
+    <p>
+        To use this Node you need to sign in to <a href="https://www.pushstaq.com/app/signup/">PushStaq</a> and
+        Create a channel or select existing one.<br /> From the channel settings get the channel API Key.<br />To get real time push notifications on your device simply subscribe to the channel through PushStaq from any of your device</p>
+ </script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('PushStaq',{
+        category: 'mobile',
+        color: '#a6bbcf',
+        defaults: {
+            config: {type:"pushstaq-api-keys", required: true},
+            name: {value: ""}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "pushstaq.png",
+        align: "right",
+        label: function() {
+            return this.name || "PushStaq";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="PushStaq">
+    <div class="form-row">
+        <label for="node-input-config"><i class="fa fa-user"></i>Config</label>
+        <input type="text" id="node-input-config" placeholder="Add new PushStaq config...">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Node Name">
+    </div>
+</script>
