@@ -39,7 +39,8 @@ module.exports = function (RED) {
                             body = {error: resData};
                         }
                         if (res.statusCode === 201) {
-                            node.warn('PushStaq request success: ' + (body.status ? body.status : body));
+                            // No need for success to show any interaction in Node-Red
+                            // node.warn('PushStaq request success: ' + (body.status ? body.status : body));
                             if (done) {
                                 done();
                             }
