@@ -1,7 +1,7 @@
 {
   "name": "node-red-contrib-pushstaq",
   "version": "0.0.1",
-  "description": "This is the official PushStaq node for Node-Red.",
+  "description": "The most simple way to trigger real time push notifications from Node-Red to your mobile and desktop devices. Official PushStaq node for Node-Red.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
