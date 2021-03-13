@@ -79,7 +79,8 @@ module.exports = function (RED) {
         }
 
         this.on('input', function (msg, send, done) {
-            msg.payload = msg.payload || null;
+            // PushStaq receives only strings, so for any input cast it
+            msg.payload = String(msg.payload);
 
             if (msg.payload) {
                 callPushStaqApi(node, msg, done);
