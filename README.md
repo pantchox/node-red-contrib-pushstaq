@@ -6,7 +6,9 @@ With this node you can trigger and alert real time push notifications messages f
 
 To use PushStaq you can quickly register at https://www.pushstaq.com and start pushing messages in less a minute setup 📱🖥️🔥🚨
 
-## Guidelines
+For a **full walkthrough** tutorial visit PushStaq Blog post at https://www.pushstaq.com/blog/node-red-push-notifications-with-pushstaq/
+ 
+## Quick Setup Guidelines
 
 ### PushStaq
 
