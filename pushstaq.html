@@ -3,10 +3,12 @@
     RED.nodes.registerType('pushstaq-api-keys',{
         category: 'config',
         defaults: {
-            name: {value:""},
+            name: {value:""}
         },
         credentials: {
             apikey: {type:"text",required:true},
+            password: {type: "password", required: false},
+            channelid: {type: "text", required: false}
         },
         label: function() {
             return this.name || 'No Name PushStaq Channel';
@@ -20,11 +22,21 @@
         <input type="text" id="node-config-input-name" placeholder="Config name">
     </div>
     <div class="form-row">
-        <label for="node-config-input-apikey"><i class="fa fa-lock"></i>API Key</label>
+        <label for="node-config-input-apikey"><i class="fa fa-key"></i>API Key</label>
         <input type="text" id="node-config-input-apikey" placeholder="Channel API Key">
     </div>
-    <div class="form-tips"><b>Name:</b>Config name, You can enter your PushStaq channel or any other suitable name</div>
-    <div class="form-tips"><b>API Key:</b>The selected PushStaq channel API Key. In PushStaq channel open the settings pane and copy the API key. If API key does not exist click the "Generate API Key" button, this will create a new API key dedicated to the selected channel</div>
+    <div class="form-row">
+        <label for="node-config-input-password"><i class="fa fa-shield"></i>Channel Password</label>
+        <input type="password" id="node-config-input-password" placeholder="Channel Password">
+    </div>
+    <div class="form-row" >
+        <label for="node-config-input-channelid"><i class="fa fa-id-card-o"></i>Channel ID</label>
+        <input type="text" id="node-config-input-channelid" placeholder="Channel ID">
+    </div>
+    <div class="form-tips" style="margin-bottom: 5px; border-radius: 10px;"><b>Name: </b>Config name<br /> You can enter your PushStaq channel or any other suitable name</div>
+    <div class="form-tips" style="margin-bottom: 5px; border-radius: 10px;"><b>API Key: </b>The selected PushStaq channel API Key.<br /> In PushStaq channel open the settings pane and copy the API key. If API key does not exist click the "Generate API Key" button, this will create a new API key dedicated to the selected channel</div>
+    <div class="form-tips" style="margin-bottom: 5px; border-radius: 10px;"><b>Channel password (Optional):</b>The selected PushStaq channel end-to-end encryption password.<br />If you wish to enable end-to-end encryption between Node-Red to your devices that uses the channel, In PushStaq channel open the settings pane under "End-to-end encryption" section, Set your channel password. The same password must be provided here as well to allow E2EE communication.</div>
+    <div class="form-tips" style="margin-bottom: 5px; border-radius: 10px;"><b>Channel ID (Optional):</b>The selected PushStaq channel ID to enable end-to-end encryption.<br />This is required if you provide channel password for end-to-end encryption. In PushStaq channel open the settings pane under "End-to-end encryption" section and copy the channel ID and paste it here.</div>
 </script>
 
 <!-- main pushstaq node -->

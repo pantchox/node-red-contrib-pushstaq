@@ -1,13 +1,43 @@
 module.exports = function (RED) {
+    const crypto = require('crypto');
     const https = require('https');
-    // const PUSHSTAQ_API_URL = 'https://www.pushstaq.com/api/push/';
+    const E2EE_SIGNATURE = 'PS!';
+    function generatePBKDFKey(passphrase, salt) {
+        const key = crypto.pbkdf2Sync(passphrase, salt, 35000, 32, 'sha256');
+        return key;
+    }
+
+    function encryptMessage(message, channelKey) {
+        // initialization vector
+        const iv = crypto.randomBytes(12);
+        // aes-256-gcm
+        const cipher = crypto.createCipheriv('aes-256-gcm', channelKey, iv);
+        // encrypt message
+        const encrypted = Buffer.concat([cipher.update(E2EE_SIGNATURE + message, 'utf8'), cipher.final()]);
+        // get auth tag
+        const tag = cipher.getAuthTag();
+        // combine to base64
+        return Buffer.concat([iv, encrypted, tag]).toString('base64');
+    }
 
     // function to send the payload to PushStaq
     function callPushStaqApi(node, msg, done) {
         // create valid PushStaq API message
-        const data = JSON.stringify({
+        let data = {
             message: msg.payload,
-        });
+        };
+
+        // end-to-end encryption configuration
+        if (node.config.password && node.config.channelid) {
+            const passphrase = node.config.password;
+            const salt = node.config.channelid;
+            const channelKey = generatePBKDFKey(passphrase, salt);
+            const encryptedMessage = encryptMessage(msg.payload, channelKey);
+            data.message = encryptedMessage;
+            data.encrypted = true;
+        }
+
+        data = JSON.stringify(data);
 
         // use node native https lib
         const req = https
@@ -102,12 +132,16 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, n);
         this.name = n.name;
         this.apikey = n.apikey;
+        this.password = n.password;
+        this.channelid = n.channelid;
     }
 
     // register configuration node
     RED.nodes.registerType('pushstaq-api-keys', PushStaqApiKeys, {
         credentials: {
             apikey: {type: 'text'},
+            password: {type: 'password'},
+            channelid: {type: 'text'},
         },
     });
 };
