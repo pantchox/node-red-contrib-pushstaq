@@ -2,6 +2,7 @@ module.exports = function (RED) {
     const crypto = require('crypto');
     const https = require('https');
     const E2EE_SIGNATURE = 'PS!';
+    const MESSAGE_MAX_LENGTH = 2048;
     function generatePBKDFKey(passphrase, salt) {
         const key = crypto.pbkdf2Sync(passphrase, salt, 35000, 32, 'sha256');
         return key;
@@ -113,7 +114,20 @@ module.exports = function (RED) {
             msg.payload = String(msg.payload);
 
             if (msg.payload) {
-                callPushStaqApi(node, msg, done);
+                if (msg.payload <= MESSAGE_MAX_LENGTH) {
+                    callPushStaqApi(node, msg, done);
+                } else {
+                    if (done) {
+                        done(
+                            'PushStaq node must receive msg.payload that does not exceeds max payload length (over 2048 characters)'
+                        );
+                    } else {
+                        node.error(
+                            'PushStaq node must receive msg.payload that does not exceeds max payload length (over 2048 characters)',
+                            msg
+                        );
+                    }
+                }
             } else {
                 if (done) {
                     done('PushStaq node must receive msg.payload in order to work');
