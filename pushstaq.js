@@ -114,7 +114,7 @@ module.exports = function (RED) {
             msg.payload = String(msg.payload);
 
             if (msg.payload) {
-                if (msg.payload <= MESSAGE_MAX_LENGTH) {
+                if (msg.payload.length <= MESSAGE_MAX_LENGTH) {
                     callPushStaqApi(node, msg, done);
                 } else {
                     if (done) {
