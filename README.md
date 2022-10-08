@@ -29,3 +29,4 @@ For a **full walkthrough** tutorial with End-to-end encryption tutorial at https
 -   Double click to edit node properties where inside you will need to paste the channel API key you copied from PushStaq channels settings pane and you are all set.
 
 For any questions or bugs or requests please open a new [issue here](https://github.com/pantchox/node-red-contrib-pushstaq/issues/new)
+  
